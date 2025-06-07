@@ -1,0 +1,175 @@
+lec 1
+Js is run on browser with the help of v8 engine (written in c++)
+Node contains v8 engine, and is required to run js on server side/ computer
+After installing node
+You can write js inside command shell -> type node, and hit enter
+
+
+lec 2 
+node 'file name(without extension)' -> To run JS files in terminal
+clear -> to clear the terminal
+
+ The forEach method is used to iterate over an array and perform a function on each element, but it does not return a new array. The map method, on the other hand, also iterates over an array and performs a function on each element, but it returns a new array containing the results of applying the function to each element.
+
+In the node, we have "global" as the global object rather than "window", which is the global object in a window(browser in frontend)
+
+#Terminal commands
+cd -> change directory
+. -> means the current directory
+mkdir -> to make a new directory
+
+there are three things
+    object -> property, method
+
+node is required for working with files if we are using javascript
+async function means it will not stop the code, the code will continue and a callback function will be called when it completes
+An async function requires a callback function, to be called when it is completed
+
+lec 4 _ request and response
+Status codes
+    200 -> OK
+    301 -> Resource moved
+    404 -> Not found
+    500 -> internal server error
+100 range -> informational response
+200 range -> success codes
+300 range -> redirect codes
+400 range -> user or client error codes
+500 range -> server error codes
+
+lec 5 _ npm
+Always console errors, as it's easy to catch them
+If you console.log something in the server, it will be logged out in terminal of server
+If you console.log something in the browser, it will be logged out in console of browser
+npm install -g nodemon
+    it runs the server again, whenever a change is made 
+    -g means we are installing it globally
+    we can also use 'i' in-place of 'install'
+________________npm init_______________
+    for initializing "package.json" file
+    contains all the different project dependencies, the packages installed locally
+package.json file lists all of our dependencies. So if we don't have all the required modules, we can simply run 'npm install', which will install all the modules
+
+"npm install morgan --save"
+in older versions of node, we had to use "--save" to save it to the dependencies
+
+lec 6 _ Express app
+npm i express
+After sending back a response to the browser, all the code after that will not work, it's like returning from function
+
+    // we use res.sendFile here in case of html files 
+    // res.send in case of html tags
+    // & res.send/render in case of ejs files
+    // render is used with view engines, for dynamic data
+
+lec 7 _ View engines
+View engine -> EJS (the one we are using)
+
+EJS is helpful in injecting dynamic data inside pages
+
+server side rendering -> 
+    ejs lives on server
+    converts views into html by ejs view engine
+    that html is sent to browser
+
+when to use = and when not      // in ejs
+when outputting/ displaying a single variable, then use '=', and when js is used, then don't use '='
+
+
+we use '=' instead of '-' in "include", while including headers, nav and footers, because
+    '=' escapes the special characters, hence it will return only a string instead of raw HTML
+
+lec 8 _ Middleware
+app.use()
+Middleware refers to the code that runs in between our request sent to server and response given by server
+it's like components in react
+When using middleware, we need to specify what to do after the middleware, hence we use a next function
+
+third party Middleware -> morgan
+    npm install morgan
+    it logs the HTTP requests
+When using third party middlewares, they have the next written inside them
+
+Middlewares are used to send 404 pages, authenticate data, parse json data into string, etc.
+
+link the static files like css, through express.static() method and passing the folder name
+whatever is placed in public file, the images or css, all that will be accessible by browser at the root level
+
+lec 9 _ MongoDB
+
+Create a database
+create a collection
+database access
+get the connection key
+
+
+Rather than installing MongoDB and then deploying our own database, we are using cloud MongoDB.
+
+collection is a collection of documents (documents of same type)
+each document 
+
+npm install mongoose
+    used to connect to database
+ mongoose wraps the mongoDB api and helps in communication with the database
+ mongoose is an odm(object document mapping) library
+
+
+In connection string, you need to write 'collection name' after the single / to add new document to  database
+
+??Doubts
+1. usage of .then() -> when asynchronous is called
+2. blogs collection will contain only blogs documents(one kind of document), so Does blogs collection contain only one model
+3. How do they automatically take parameters like res, req, err, result, etc. inside functions like app.get, .then() etc.
+
+lec 10 _ get, post & delete request
+
+There are different kinds of requests; get, post, delete, put.
+we can use different requests on same url, like get & post on same url.
+
+action property of 'form' has the url to which we post a request
+app.use(express.urlencoded({ encoded: true }));     //for accepting the urlencoded form data and parsing it as an object
+
+Route parameters -> The dynamic part of a url that may change value
+to denote a route parameter we use ':'
+req.param.id -> param property to extract the parameter
+
+data attribute -> custom attribute, that we can add to html tags
+data-doc _ used in details.ejs
+
+In Delete method
+we can't redirect from server after sending an ajax request from browser
+
+ajax request -> sending request from javascript, in the browser _ not a web-form or anchor tag or anything else
+when we send an ajax request to a server, we can't use redirect as response, we can send json data back to browser, and in that json data, we can send the url to which we want to redirect
+
+AJAX Request:
+
+An AJAX request is a way to send and receive data asynchronously without refreshing the entire web page.
+It is typically sent using JavaScript in the browser, not through a web form or anchor tag.
+DELETE Method:
+
+The DELETE method is used to delete a resource on the server.
+In your application, it might be used to delete a blog post.
+Redirection Limitation:
+
+When you send an AJAX request to the server, you cannot use a redirect (res.redirect) as the response.
+This is because AJAX requests expect a JSON response or some data, not a full-page redirect.
+Sending JSON Data:
+
+Instead of redirecting, you can send JSON data back to the browser.
+This JSON data can include the URL to which you want to redirect the user.
+
+lec 11 _ express router & mvc
+
+The idea of routing is to group together the requests having similar routes like _ /blog/:id, /blog/create, etc.
+
+controllers are used as middleman between models & views, get data from models and pass it to views
+They are not necessary, just to make code more reuseable
+
+all blog views can be put in separate blog folder inside views
+
+Express routes
+MVC
+model, view, controller
+
+view is obsolete now in mvc, as we don't use ejs anymore, we use react or angular

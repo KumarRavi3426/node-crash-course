@@ -1,0 +1,39 @@
+<html lang="en">
+
+<%- include('./partials/head.ejs')%>
+
+    <body>
+        <%- include('./partials/nav.ejs')%>
+
+            <div class="details content">
+                <h2>
+                    <%= blog.title %>
+                </h2>
+                <div class="content">
+                    <p>
+                        <%= blog.body %>
+                    </p>
+                </div>
+                <a class="delete" data-doc="<%= blog.id %>">delete</a>
+                <!-- remember to put the "=" in ejs -->
+            </div>
+            <%- include('./partials/footer.ejs')%>
+
+    </body>
+    <script>        // All this runs on the frontend browser, not the server
+        const trashcan = document.querySelector('.delete')
+
+        trashcan.addEventListener('click', (e) => {
+            const endpoint = `/blogs/${trashcan.dataset.doc}`
+            console.log('clicked')
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+                .then((response) => response.json())    // parses the json data into actual javascript object
+                // .then((data) => console.log(data))
+                .then((data) => window.location.href = data.redirect)
+                .catch(console.error)
+        })
+    </script>
+
+</html>
